@@ -14,7 +14,7 @@ const OrderForm = ({ addNewOrder }) => {
       return;
     }
     
-    addNewOrder({ id: Date.now(), name: name, ingredients: ingredients });
+    addNewOrder({ name: name, ingredients: ingredients });
     clearInputs();
   };
 
@@ -22,11 +22,7 @@ const OrderForm = ({ addNewOrder }) => {
     setName('');
     setIngredients([]);
   };
-
-  const handleNameChange = e => {
-    setName(e.target.value);
-  };
-
+  
   const handleIngredientChange = e => {
     e.preventDefault();
     setIngredients([...ingredients, e.target.name]);
@@ -48,7 +44,7 @@ const OrderForm = ({ addNewOrder }) => {
         placeholder='Name'
         name='name'
         value={name}
-        onChange={e => handleNameChange(e)}
+        onChange={e => setName(e.target.value)}
       />
 
       { ingredientButtons }
