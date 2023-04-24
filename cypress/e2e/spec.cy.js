@@ -9,6 +9,7 @@ describe('Burrito building flow test', () => {
         ingredients: ['beans', 'steak', 'guacamole', 'cilantro']
       }
     })
+    cy.intercept('DELETE', 'http://localhost:3001/api/v1/orders/2', { statusCode: 204 })
     .visit('http://localhost:3000');
   });
   
@@ -60,5 +61,12 @@ describe('Burrito building flow test', () => {
     .get('[name="beans"]').click()
     .get('[type="submit"]').click()
     .get('#incompleteFormError').should('exist');
+  });
+
+  // The user should be able to delete an order and have it removed from the DOM
+  it('Should be able to delete orders', () => {
+    cy.get('#delete2').click()
+    
+    .get('#order2').should('not.contain', 'Sam');
   });
 });
