@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { getOrders, addOrder } from '../../apiCalls';
+import { getOrders, addOrder, deleteOrder } from '../../apiCalls';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
@@ -21,6 +21,12 @@ const App = () => {
     .catch(err => console.log('Error posting:', err));
   };
 
+  const removeOrder = orderId => {
+    deleteOrder(orderId)
+    .then(() => setOrders(orders.filter(order => order.id !== orderId)))
+    .catch(err => console.log('Error deleting:', err));
+  };
+
   return (
     <main className="App">
       <header>
@@ -28,10 +34,10 @@ const App = () => {
         <OrderForm addNewOrder={addNewOrder}/>
       </header>
 
-      <Orders orders={orders}/>
+      <Orders orders={orders} removeOrder={removeOrder}/>
     </main>
   );
-}
+};
 
 
 export default App;
