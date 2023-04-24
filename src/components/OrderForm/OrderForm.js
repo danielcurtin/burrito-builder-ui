@@ -22,7 +22,7 @@ const OrderForm = ({ addNewOrder }) => {
     setName('');
     setIngredients([]);
   };
-  
+
   const handleIngredientChange = e => {
     e.preventDefault();
     setIngredients([...ingredients, e.target.name]);
@@ -31,7 +31,7 @@ const OrderForm = ({ addNewOrder }) => {
   const possibleIngredients = ['beans', 'steak', 'carnitas', 'sofritas', 'lettuce', 'queso fresco', 'pico de gallo', 'hot sauce', 'guacamole', 'jalapenos', 'cilantro', 'sour cream'];
   const ingredientButtons = possibleIngredients.map(ingredient => {
     return (
-      <button key={ingredient} name={ingredient} onClick={e => handleIngredientChange(e)}>
+      <button key={ingredient} name={ingredient} className='ingredient-button' onClick={e => handleIngredientChange(e)}>
         {ingredient}
       </button>
     )
@@ -50,9 +50,9 @@ const OrderForm = ({ addNewOrder }) => {
       { ingredientButtons }
 
       <p>Order: { ingredients.join(', ') || 'Nothing selected' }</p>
-      {error && <p style={{color: 'red'}}>Please enter a name and at least one ingredient.</p>}
+      {error && <p style={{color: 'red'}} id='incompleteFormError'>Please enter a name and at least one ingredient.</p>}
 
-      <button onClick={e => handleSubmit(e)}>
+      <button type="submit" onClick={e => handleSubmit(e)}>
         Submit Order
       </button>
     </form>
